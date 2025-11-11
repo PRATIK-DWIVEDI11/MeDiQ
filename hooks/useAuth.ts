@@ -6,7 +6,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore'
 
 export function useAuth() {
-  const { setUser, setUserType, setLoading } = useAuthStore()
+  const { setUser, setUserType } = useAuthStore()
+  //const { setUser, setUserType, setLoading } = useAuthStore()
 
   useEffect(() => {
     let isMounted = true
