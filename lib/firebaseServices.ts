@@ -560,7 +560,8 @@ export async function addPatientToQueue(doctorId: string, patientDetails: any) {
 }
 
 // Get full queue for doctor
-export async function getQueueForDoctor(doctorId) {
+export async function getQueueForDoctor(doctorId: string) {
+//export async function getQueueForDoctor(doctorId) {
   const queueRef = doc(db, "doctorQueues", doctorId);
   const queueSnap = await getDoc(queueRef);
   return queueSnap.exists() ? queueSnap.data().queue : [];
