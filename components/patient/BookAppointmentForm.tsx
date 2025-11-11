@@ -59,7 +59,7 @@ export default function BookAppointmentForm() {
       //   (prev.rating || 0) > (current.rating || 0) ? prev : current
       // )
       setSelectedDoctor(bestDoctor)
-      console.log('🎯 Auto-selected best doctor:', bestDoctor.name)
+     // console.log('🎯 Auto-selected best doctor:', bestDoctor.name)
       setStep('ai-result')
     } catch (err: any) {
       console.error('❌ AI Analysis Error:', err)
@@ -76,7 +76,7 @@ export default function BookAppointmentForm() {
     setStep('booking')
     setError('')
     try {
-      console.log('📅 Creating appointment with PENDING status...')
+     // console.log('📅 Creating appointment with PENDING status...')
       const bookingResult = await createAppointmentWithStatus({
         patientId: user.uid,
         patientName: user.displayName || 'Patient',
@@ -91,7 +91,7 @@ export default function BookAppointmentForm() {
         urgency: urgency
       })
       if (bookingResult.success) {
-        console.log('✅ Appointment requested successfully!')
+       // console.log('✅ Appointment requested successfully!')
         setSuccessMessage(`
           ✅ Appointment Request Submitted!
           Doctor: ${selectedDoctor.name}
