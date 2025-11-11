@@ -60,7 +60,7 @@ export function useAuth() {
       isMounted = false
       unsubscribe()
     }
-  }, [setUser, setUserType, setLoading])
+  }, [setUser, setUserType])
 
   return useAuthStore()
 }
