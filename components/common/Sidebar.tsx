@@ -30,7 +30,8 @@ const iconMap: { [key: string]: any } = {
 export default function Sidebar({ navItems, userType }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const { logoutUser } = useAuthStore()
+  const { logout } = useAuthStore()
+  //const { logoutUser } = useAuthStore()
   const [loggingOut, setLoggingOut] = useState(false)
   
   const userTypeConfig = {
