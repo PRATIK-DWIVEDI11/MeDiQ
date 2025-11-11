@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Brain, Loader } from 'lucide-react'
-import { analyzeSymptoms, type AIBookingResponse } from '../../lib/aiService'
+import { analyzeSymptoms } from '../../lib/aiService'
 //import { analyzeSymptoms, analyzeSymptomsFallback, type AIBookingResponse } from '../../lib/aiService'
 import { bookAppointment } from '../../lib/firebaseServices'
 import { useAuthStore } from '../../lib/authContext'
