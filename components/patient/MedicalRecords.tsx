@@ -17,7 +17,8 @@ export default function MedicalRecords() {
     try {
       const data = await getMedicalRecords(user?.uid!)
       // Sorted with latest on top
-      setRecords([...data].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || "")))
+      setRecords([...data].sort((a: any, b: any) => (b.createdAt || "").localeCompare(a.createdAt || "")))
+      //setRecords([...data].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || "")))
     } catch (error) {
       console.error('Error:', error)
     } finally {
