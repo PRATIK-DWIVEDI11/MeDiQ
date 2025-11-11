@@ -63,28 +63,45 @@ export default function AIBookingAssistant() {
     if (!aiResult || !user) return
 
     setLoading(true)
-    try {
-      const result = await bookAppointment(
-        user.uid,
-        aiResult.recommendedDoctor.id,
-        selectedDate,
-        aiResult.recommendedTime,
-        symptoms,
-        aiResult.recommendedDoctor.specialty
-      )
+try {
+  // TODO: Implement bookAppointment
+  alert('Appointment booking coming soon!')
+  setStep('input')
+  // const result = await bookAppointment(
+  //   user.uid,
+  //   aiResult.recommendedDoctor.id,
+  //   selectedDate,
+  //   ...
+  // )
+} catch (err) {
+  setError('Booking failed')
+} finally {
+  setLoading(false)
+}
 
-      if (result.success) {
-        alert('✅ Appointment booked successfully!')
-        router.push('/patient/appointments')
-      } else {
-        setError('Failed to book appointment')
-      }
-    } catch (err) {
-      setError('Error booking appointment')
-    } finally {
-      setLoading(false)
-    }
-  }
+  //   setLoading(true)
+  //   try {
+  //     const result = await bookAppointment(
+  //       user.uid,
+  //       aiResult.recommendedDoctor.id,
+  //       selectedDate,
+  //       aiResult.recommendedTime,
+  //       symptoms,
+  //       aiResult.recommendedDoctor.specialty
+  //     )
+
+  //     if (result.success) {
+  //       alert('✅ Appointment booked successfully!')
+  //       router.push('/patient/appointments')
+  //     } else {
+  //       setError('Failed to book appointment')
+  //     }
+  //   } catch (err) {
+  //     setError('Error booking appointment')
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg border-2 border-blue-200">
