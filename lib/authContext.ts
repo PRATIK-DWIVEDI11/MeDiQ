@@ -29,3 +29,4 @@ export const useAuthStore = create<AuthState>()(
   )
 )
 
+export const useAuth = () => useAuthStore()
