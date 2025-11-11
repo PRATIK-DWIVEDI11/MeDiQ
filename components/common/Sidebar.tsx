@@ -61,7 +61,7 @@ export default function Sidebar({ navItems, userType }: SidebarProps) {
     setLoggingOut(true)
     try {
       await logout()
-      logoutUser() // Clear auth store
+      //logoutUser() // Clear auth store
       router.push('/auth')
     } catch (error) {
       console.error('Logout failed:', error)
