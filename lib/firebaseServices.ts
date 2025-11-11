@@ -546,7 +546,8 @@ export async function markPatientStatus(appointmentId: string, status: 'SEEING' 
   }
 }
 
-export async function addPatientToQueue(doctorId, patientDetails) {
+export async function addPatientToQueue(doctorId: string, patientDetails: any) {
+//export async function addPatientToQueue(doctorId, patientDetails) {
   const queueRef = doc(db, "doctorQueues", doctorId);
   const queueSnap = await getDoc(queueRef);
   let queue = [];
