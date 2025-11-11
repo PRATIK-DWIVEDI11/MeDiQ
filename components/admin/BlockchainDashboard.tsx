@@ -4,7 +4,8 @@ import { getBlockchainTransactions } from '../../lib/blockchainService'
 import { Link as LinkIcon, CheckCircle, Loader } from 'lucide-react'
 
 export default function BlockchainDashboard() {
-  const [transactions, setTransactions] = useState([])
+  //const [transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
