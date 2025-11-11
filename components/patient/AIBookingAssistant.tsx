@@ -43,10 +43,17 @@ export default function AIBookingAssistant() {
       setStep('result')
     } catch (err) {
       console.error('AI Error:', err)
+      setError('Failed to analyze symptoms. Please try again.')
       // Fallback to rule-based
-      const fallbackResult = analyzeSymptomsFallback(symptoms, urgency)
-      setAiResult(fallbackResult)
-      setStep('result')
+      // const fallbackResult = analyzeSymptomsFallback(symptoms, urgency)
+      // setAiResult(fallbackResult)
+      // setStep('result')
+
+      // console.error('AI Error:', err)
+      // // Fallback to rule-based
+      // const fallbackResult = analyzeSymptomsFallback(symptoms, urgency)
+      // setAiResult(fallbackResult)
+      // setStep('result')
     } finally {
       setLoading(false)
     }
