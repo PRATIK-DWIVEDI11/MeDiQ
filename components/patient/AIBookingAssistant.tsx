@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Brain, Loader } from 'lucide-react'
 import { analyzeSymptoms } from '../../lib/aiService'
 //import { analyzeSymptoms, analyzeSymptomsFallback, type AIBookingResponse } from '../../lib/aiService'
-import { bookAppointment } from '../../lib/firebaseServices'
+//import { bookAppointment } from '../../lib/firebaseServices'
 import { useAuthStore } from '../../lib/authContext'
 import { useRouter } from 'next/navigation'
 
