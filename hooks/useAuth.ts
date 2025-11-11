@@ -51,7 +51,7 @@ export function useAuth() {
         console.error('Auth error:', error)
       } finally {
         if (isMounted) {
-          setLoading(false)
+          //setLoading(false)
         }
       }
     })
