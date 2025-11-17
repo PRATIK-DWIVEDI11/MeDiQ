@@ -122,20 +122,21 @@ npm install
 
 3. **Set up environment variables**
 Create a `.env.local` file in the root directory:
-Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-Google AI
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
-
-Blockchain
-NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address
-NEXT_PUBLIC_ETHEREUM_NETWORK=sepolia
+    Firebase Configuration
+    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+    NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+    
+    Google AI
+    NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+    
+    Blockchain
+    NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address
+    NEXT_PUBLIC_ETHEREUM_NETWORK=sepolia
 
 
 4. **Run the development server**
@@ -217,20 +218,19 @@ MeDiQ/
 | **AI Symptom Checker** | Analyze symptoms and get doctor recommendations |
 | **Appointment Booking** | Schedule appointments with recommended doctors |
 | **Medical Records** | Access complete health history and documents |
-| **Prescription Management** | View and track prescriptions |
 | **Queue Tracking** | Real-time appointment queue status |
-| **Profile Management** | Update personal and medical information |
+| **Organ Donation** | Request admin to donate organ |
 
 ### Doctor Features
 
 | Feature | Description |
 |---------|-------------|
 | **Patient Queue** | Manage daily appointment queue |
-| **Medical Records Access** | View patient history and records |
-| **Prescription Writing** | Create and manage prescriptions |
 | **Appointment Management** | Accept/decline appointment requests |
 | **Analytics Dashboard** | View patient statistics and trends |
 | **Schedule Management** | Set availability and working hours |
+| **Organ Donation** | Request admin to donate organ |
+
 
 ### Admin Features
 
@@ -240,7 +240,6 @@ MeDiQ/
 | **System Analytics** | View platform usage statistics |
 | **Blockchain Monitor** | Track blockchain transactions |
 | **Appointment Oversight** | Monitor all appointments |
-| **Data Export** | Generate reports and analytics |
 | **System Configuration** | Manage platform settings |
 
 ---
