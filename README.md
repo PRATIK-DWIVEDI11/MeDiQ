@@ -18,7 +18,6 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [System Architecture](#system-architecture)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
@@ -95,45 +94,8 @@ The platform aims to revolutionize healthcare delivery by making it more accessi
 - **Smart Contracts:** Solidity
 
 ### AI & ML
-- **API:** Google Gemini AI
+- **API:** Google Gemini AI / Groq API
 - **Analysis:** Symptom checker and diagnosis assistant
-
----
-
-## 🏗️ System Architecture
-
-┌─────────────────────────────────────────────────────────┐
-│ CLIENT LAYER │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │
-│ │ Patient │ │ Doctor │ │ Admin │ │
-│ │ Dashboard │ │ Dashboard │ │ Dashboard │ │
-│ └──────────────┘ └──────────────┘ └──────────────┘ │
-└─────────────────────────────────────────────────────────┘
-▼
-┌─────────────────────────────────────────────────────────┐
-│ APPLICATION LAYER │
-│ ┌─────────────────────────────────────────────────┐ │
-│ │ Next.js App Router (TypeScript) │ │
-│ │ - Authentication - Authorization - Routing │ │
-│ └─────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
-▼
-┌─────────────────────────────────────────────────────────┐
-│ SERVICE LAYER │
-│ ┌──────────┐ ┌──────────┐ ┌────────────────────┐ │
-│ │ Firebase │ │ Gemini │ │ Ethereum Network │ │
-│ │ Services │ │ AI │ │ (Blockchain) │ │
-│ └──────────┘ └──────────┘ └────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
-▼
-┌─────────────────────────────────────────────────────────┐
-│ DATA LAYER │
-│ ┌──────────┐ ┌──────────┐ ┌────────────────────┐ │
-│ │Firestore │ │ Firebase │ │ Smart Contracts │ │
-│ │ Database │ │ Storage │ │ (Immutable) │ │
-│ └──────────┘ └──────────┘ └────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
-
 
 ---
 
@@ -234,11 +196,11 @@ MeDiQ/
 
 ### 1. **Patient**
 - Primary users seeking medical consultation
-- Can book appointments, view records, and communicate with doctors
+- Can book appointments, view records, and communicate with doctors and req to donate organ
 
 ### 2. **Doctor**
 - Medical professionals providing healthcare services
-- Manage appointments, prescriptions, and patient records
+- Manage appointments, prescriptions, and patient records and also req to submit organ
 
 ### 3. **Admin**
 - Platform administrators
@@ -285,7 +247,7 @@ MeDiQ/
 
 ## 🤖 AI Integration
 
-MeDiQ leverages **Google Gemini AI** for intelligent healthcare assistance:
+MeDiQ leverages **Groq AI API** for intelligent healthcare assistance:
 
 ### Symptom Analysis
 - Natural language processing of patient symptoms
@@ -312,7 +274,7 @@ MeDiQ leverages **Google Gemini AI** for intelligent healthcare assistance:
 
 MeDiQ uses blockchain technology for:
 
-1. **Medical Record Security**
+1. **Medical Record Security for donated Organ**
    - Immutable storage of medical records
    - Tamper-proof data verification
    - Decentralized access control
@@ -326,19 +288,6 @@ MeDiQ uses blockchain technology for:
    - Cryptographic hashing of documents
    - Blockchain-verified authenticity
    - Distributed storage redundancy
-
-### Smart Contract Functions
-
-// Sample functions (conceptual)
-
-addMedicalRecord(patientId, recordHash)
-
-verifyRecord(recordHash)
-
-grantAccess(patientId, doctorId)
-
-revokeAccess(patientId, doctorId)
-
 
 
 ---
@@ -394,23 +343,11 @@ Ensure all environment variables are configured in Vercel:
 
 ## 🚀 Future Enhancements
 
-### Phase 1 (Q1 2026)
-- [ ] Telemedicine video consultation
-- [ ] Mobile application (React Native)
-- [ ] Pharmacy integration
-- [ ] Insurance claim processing
+  1. Give docotrs the features to take online sessions with client
+  2. Better Queue management
+  3. Convert the web app into an functional mobile app
+  4. More interactive UI design
 
-### Phase 2 (Q2 2026)
-- [ ] Wearable device integration
-- [ ] Advanced AI diagnostics
-- [ ] Multi-language support
-- [ ] Payment gateway integration
-
-### Phase 3 (Q3 2026)
-- [ ] Hospital network integration
-- [ ] Emergency services module
-- [ ] Health tracking dashboards
-- [ ] Community health forums
 
 ---
 
@@ -443,8 +380,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 **Pratik Dwivedi**
 
 - GitHub: [@PRATIK-DWIVEDI11](https://github.com/PRATIK-DWIVEDI11)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
-- Email: your.email@example.com
+- LinkedIn: [Your LinkedIn](www.linkedin.com/in/pratik-dwivedi11)
+- Email: pratikdwivedi107@gmail.com
 
 ---
 
@@ -460,13 +397,13 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📞 Support
 
-For support, email your.email@example.com or open an issue in the repository.
+For support, email dwivedipratik1123@gmail.com or open an issue in the repository.
 
 ---
 
 <div align="center">
 
-Made with ❤️ for better healthcare
+Made with ❤️ for better healthcare and medical industry
 
 **[⬆ Back to Top](#mediq---digital-healthcare-platform)**
 
