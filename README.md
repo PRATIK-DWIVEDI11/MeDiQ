@@ -379,7 +379,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 **Pratik Dwivedi**
 
 - GitHub: [@PRATIK-DWIVEDI11](https://github.com/PRATIK-DWIVEDI11)
-- LinkedIn: [Your LinkedIn](www.linkedin.com/in/pratik-dwivedi11)
+- LinkedIn: [Your LinkedIn]([www.linkedin.com/in/pratik-dwivedi11](https://www.linkedin.com/in/pratik-dwivedi11/))
 - Email: pratikdwivedi107@gmail.com
 
 ---
