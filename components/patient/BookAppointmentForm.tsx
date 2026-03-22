@@ -107,7 +107,7 @@ export default function BookAppointmentForm() {
         setStep('success')
         setTimeout(() => { window.location.href = '/patient/appointments' }, 3000)
       } else {
-        throw new Error(bookingResult.error)
+        throw new Error(String(bookingResult.error || 'Booking failed'))
       }
     } catch (err: any) {
       console.error('❌ Booking Error:', err)
