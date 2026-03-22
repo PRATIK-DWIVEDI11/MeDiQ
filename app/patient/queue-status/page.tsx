@@ -18,11 +18,11 @@ export default function QueueStatusPage() {
     if (!user?.uid) return
 
     const fetchAppointment = async () => {
-      const appointments = await getAppointmentsByPatient(user.uid)
+      const appointments = await getAppointmentsByPatient(user.uid) as any[]
       const today = new Date().toISOString().split('T')[0]
       const todayAppt = appointments.find(
         (a: any) => a.date === today && a.status === 'CONFIRMED'
-      )
+      ) as any
       if (todayAppt) {
         setDoctorId(todayAppt.doctorId)
         setDoctorName(todayAppt.doctorName || 'Your Doctor')
