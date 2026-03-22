@@ -52,7 +52,7 @@ export default function BookAppointmentForm() {
       }
       setAvailableDoctors(doctors)
       // Auto-select best doctor
-      const bestDoctor = doctors.reduce((prev, current) => 
+      const bestDoctor = (doctors as any[]).reduce((prev: any, current: any) => 
         (prev.rating || 0) > (current.rating || 0) ? prev : current
       )
       setSelectedDoctor(bestDoctor)
