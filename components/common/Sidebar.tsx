@@ -7,7 +7,6 @@ import {
   Stethoscope, Loader
 } from 'lucide-react'
 import { logout } from '../../lib/authFunctions'
-import { useAuthStore } from '../../lib/authContext'
 import { useState } from 'react'
 import ThemeToggle from './ThemeToggle'
 
@@ -30,7 +29,6 @@ const iconMap: { [key: string]: any } = {
 export default function Sidebar({ navItems, userType }: SidebarProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const { logoutUser } = useAuthStore()
   const [loggingOut, setLoggingOut] = useState(false)
 
   const userTypeConfig = {
@@ -45,7 +43,6 @@ export default function Sidebar({ navItems, userType }: SidebarProps) {
     setLoggingOut(true)
     try {
       await logout()
-      logoutUser()
       router.push('/auth')
     } catch (error) {
       console.error('Logout failed:', error)
@@ -92,9 +89,8 @@ export default function Sidebar({ navItems, userType }: SidebarProps) {
           })}
         </ul>
 
-        {/* Settings, Theme Toggle & Logout */}
+        {/* Theme Toggle & Logout */}
         <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-          {/* Dark mode toggle inside sidebar */}
           <div className="flex items-center justify-between p-4 text-gray-600 dark:text-gray-300 rounded-xl mb-1">
             <span className="font-medium text-sm">Dark Mode</span>
             <ThemeToggle />
@@ -126,6 +122,3 @@ export default function Sidebar({ navItems, userType }: SidebarProps) {
     </div>
   )
 }
-
-
-
