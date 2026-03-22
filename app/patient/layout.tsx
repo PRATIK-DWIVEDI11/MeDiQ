@@ -4,6 +4,7 @@ import { useAuthStore } from '../../lib/authContext'
 import { logout } from '../../lib/authFunctions'
 import { LayoutDashboard, Calendar, Clock, FileText, Activity, Droplet, LogOut } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import SymptomChatbot from '../../components/patient/SymptomChatbot'
 
 const PATIENT_MENU = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/patient' },
@@ -12,6 +13,7 @@ const PATIENT_MENU = [
   { name: 'Medical Records', icon: FileText, href: '/patient/medical-records' },
   { name: 'Queue Status', icon: Activity, href: '/patient/queue-status' },
   { name: 'Organ Donation', icon: Droplet, href: '/patient/donation' },
+  { name: 'Report Analyzer', icon: FileText, href: '/patient/report-summarizer' },
 ]
 
 export default function PatientLayout({ children }: { children: React.ReactNode }) {
@@ -101,6 +103,7 @@ export default function PatientLayout({ children }: { children: React.ReactNode 
           {children}
         </div>
       </div>
+      <SymptomChatbot />
     </div>
   )
 }

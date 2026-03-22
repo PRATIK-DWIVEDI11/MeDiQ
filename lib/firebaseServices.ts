@@ -13,7 +13,8 @@ import {
   arrayRemove,
   getDoc,
   orderBy,
-  writeBatch
+  writeBatch,
+  onSnapshot
 } from 'firebase/firestore'
 
 // ==================== EXISTING FUNCTIONS ====================
@@ -582,4 +583,37 @@ export async function getConfirmedPatientsNotInQueue(doctorId: string, currentQu
   return appointmentsSnap.docs
     .map(doc => ({ id: doc.id, ...doc.data() }))
     .filter((apt: any) => !alreadyInQueueIds.has(apt.patientId));
+}
+
+
+// Real-time queue subscription — calls callback instantly on any change
+export function subscribeToQueue(doctorId: string, callback: (queue: any[]) => void) {
+  const queueRef = doc(db, 'doctorQueues', doctorId)
+  return onSnapshot(queueRef, (snap) => {
+    if (snap.exists()) {
+      callback(snap.data().queue || [])
+    } else {
+      callback([])
+    }
+  })
+}
+
+// Doctor calls this to move to next patient
+export async function markCurrentPatientDone(doctorId: string) {
+  try {
+    const queueRef = doc(db, 'doctorQueues', doctorId)
+    const snap = await getDoc(queueRef)
+    if (!snap.exists()) return { success: false, error: 'Queue not found' }
+    
+    let queue = snap.data().queue || []
+    // Remove first patient (currently being seen)
+    queue = queue.slice(1)
+    // Renumber positions
+    queue = queue.map((p: any, i: number) => ({ ...p, queuePosition: i + 1 }))
+    
+    await setDoc(queueRef, { queue }, { merge: true })
+    return { success: true }
+  } catch (error: any) {
+    return { success: false, error: error.message }
+  }
 }

@@ -2,12 +2,11 @@
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '../../lib/authContext'
 import { logout } from '../../lib/authFunctions'
-import { LayoutDashboard, BarChart3, Users, Heart, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Heart, LogOut } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const ADMIN_MENU = [
   { name: 'Overview', icon: LayoutDashboard, href: '/admin' },
-  { name: 'Analytics', icon: BarChart3, href: '/admin/analytics' },
   { name: 'Staff', icon: Users, href: '/admin/staff' },
   { name: 'Organ Donation', icon: Heart, href: '/admin/organ-donation' },
 ]

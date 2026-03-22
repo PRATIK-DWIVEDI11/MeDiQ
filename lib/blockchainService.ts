@@ -5,7 +5,7 @@ export interface OrganDonation {
   id?: string
   donorId: string
   donorName: string
-  donorType: 'patient' | 'doctor' // Patient or Doctor recommending donation
+  donorType: 'patient' | 'doctor'
   age: number
   bloodType: string
   selectedOrgans: string[]
@@ -15,9 +15,8 @@ export interface OrganDonation {
   approvalDate?: string
 }
 
-// Create immutable blockchain transaction
 async function createImmutableTransaction(
-  transactionType: 'ORGAN_DONATION_REQUEST' | 'ORGAN_DONATION_APPROVED',
+  transactionType: 'ORGAN_DONATION_REQUEST' | 'ORGAN_DONATION_APPROVED' | 'ORGAN_DONATION_REJECTED',
   data: any
 ): Promise<string> {
   try {
@@ -29,7 +28,6 @@ async function createImmutableTransaction(
       immutable: true,
       blockHash: `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2)}`
     })
-
     return txRef.id
   } catch (error) {
     console.error('❌ Blockchain transaction error:', error)
@@ -37,7 +35,6 @@ async function createImmutableTransaction(
   }
 }
 
-// Patient requests organ donation
 export async function patientRequestOrganDonation(
   patientId: string,
   name: string,
@@ -46,211 +43,130 @@ export async function patientRequestOrganDonation(
   selectedOrgans: string[]
 ): Promise<{ success: boolean; donationId?: string; txHash?: string; error?: string }> {
   try {
-    // Create blockchain transaction first (immutable record)
     const txHash = await createImmutableTransaction('ORGAN_DONATION_REQUEST', {
-      patientId,
-      name,
-      age,
-      bloodType,
-      selectedOrgans,
-      requestedBy: 'PATIENT',
-      timestamp: new Date().toISOString()
+      patientId, name, age, bloodType, selectedOrgans,
+      requestedBy: 'PATIENT', timestamp: new Date().toISOString()
     })
-
-    // Store in Firestore
     const donationRef = await addDoc(collection(db, 'organDonations'), {
-      donorId: patientId,
-      donorName: name,
-      donorType: 'patient',
-      age,
-      bloodType,
-      selectedOrgans,
-      status: 'PENDING',
-      transactionHash: txHash,
-      registrationDate: new Date().toISOString(),
-      immutable: true,
-      blockchainVerified: true
+      donorId: patientId, donorName: name, donorType: 'patient',
+      age, bloodType, selectedOrgans, status: 'PENDING',
+      transactionHash: txHash, registrationDate: new Date().toISOString(),
+      immutable: true, blockchainVerified: true
     })
-
-    console.log('✅ Patient organ donation request created:', donationRef.id)
-
-    return {
-      success: true,
-      donationId: donationRef.id,
-      txHash
-    }
+    return { success: true, donationId: donationRef.id, txHash }
   } catch (error: any) {
-    console.error('❌ Error creating patient donation request:', error)
-    return {
-      success: false,
-      error: error.message
-    }
+    return { success: false, error: error.message }
   }
 }
 
-// Doctor requests organ donation for patient
 export async function doctorRequestOrganDonation(
-  doctorId: string,
-  doctorName: string,
-  patientId: string,
-  patientName: string,
-  age: number,
-  bloodType: string,
-  selectedOrgans: string[]
+  doctorId: string, doctorName: string, patientId: string, patientName: string,
+  age: number, bloodType: string, selectedOrgans: string[]
 ): Promise<{ success: boolean; donationId?: string; txHash?: string; error?: string }> {
   try {
-    // Create blockchain transaction (immutable record with doctor signature)
     const txHash = await createImmutableTransaction('ORGAN_DONATION_REQUEST', {
-      doctorId,
-      doctorName,
-      patientId,
-      patientName,
-      age,
-      bloodType,
-      selectedOrgans,
-      requestedBy: 'DOCTOR',
-      timestamp: new Date().toISOString()
+      doctorId, doctorName, patientId, patientName, age, bloodType,
+      selectedOrgans, requestedBy: 'DOCTOR', timestamp: new Date().toISOString()
     })
-
-    // Store in Firestore
     const donationRef = await addDoc(collection(db, 'organDonations'), {
-      donorId: patientId,
-      donorName: patientName,
-      donorType: 'doctor',
-      doctorId,
-      doctorName,
-      age,
-      bloodType,
-      selectedOrgans,
-      status: 'PENDING',
-      transactionHash: txHash,
-      registrationDate: new Date().toISOString(),
-      immutable: true,
-      blockchainVerified: true
+      donorId: patientId, donorName: patientName, donorType: 'doctor',
+      doctorId, doctorName, age, bloodType, selectedOrgans, status: 'PENDING',
+      transactionHash: txHash, registrationDate: new Date().toISOString(),
+      immutable: true, blockchainVerified: true
     })
-
-    console.log('✅ Doctor organ donation request created:', donationRef.id)
-
-    return {
-      success: true,
-      donationId: donationRef.id,
-      txHash
-    }
+    return { success: true, donationId: donationRef.id, txHash }
   } catch (error: any) {
-    console.error('❌ Error creating doctor donation request:', error)
-    return {
-      success: false,
-      error: error.message
-    }
+    return { success: false, error: error.message }
   }
 }
 
-// Admin approves organ donation (creates immutable approval record)
 export async function approveOrganDonation(
-  donationId: string,
-  adminId: string
+  donationId: string, adminId: string
 ): Promise<{ success: boolean; approvalTxHash?: string; error?: string }> {
   try {
     const donationRef = doc(db, 'organDonations', donationId)
     const donationSnap = await getDoc(donationRef)
-
-    if (!donationSnap.exists()) {
-      throw new Error('Donation request not found')
-    }
-
+    if (!donationSnap.exists()) throw new Error('Donation request not found')
     const donation = donationSnap.data()
-
-    // Create immutable approval transaction
     const approvalTxHash = await createImmutableTransaction('ORGAN_DONATION_APPROVED', {
-      donationId,
-      donorName: donation.donorName,
-      selectedOrgans: donation.selectedOrgans,
-      approvedBy: adminId,
-      approvalTime: new Date().toISOString(),
+      donationId, donorName: donation.donorName, selectedOrgans: donation.selectedOrgans,
+      approvedBy: adminId, approvalTime: new Date().toISOString(),
       previousTxHash: donation.transactionHash
     })
-
-    // Update donation status
     await updateDoc(donationRef, {
-      status: 'APPROVED',
-      approvalDate: new Date().toISOString(),
-      approvalTxHash: approvalTxHash,
-      approvedBy: adminId
+      status: 'APPROVED', approvalDate: new Date().toISOString(),
+      approvalTxHash, approvedBy: adminId
     })
-
-    console.log('✅ Organ donation approved with immutable record:', approvalTxHash)
-
-    return {
-      success: true,
-      approvalTxHash
-    }
+    return { success: true, approvalTxHash }
   } catch (error: any) {
-    console.error('❌ Approval error:', error)
-    return {
-      success: false,
-      error: error.message
-    }
+    return { success: false, error: error.message }
   }
 }
 
-// Get pending donations for admin
+export async function rejectOrganDonation(
+  donationId: string, adminId: string = ''
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const donationRef = doc(db, 'organDonations', donationId)
+    const donationSnap = await getDoc(donationRef)
+    if (!donationSnap.exists()) throw new Error('Donation request not found')
+    const donation = donationSnap.data()
+    const rejectionTxHash = await createImmutableTransaction('ORGAN_DONATION_REJECTED', {
+      donationId, donorName: donation.donorName, selectedOrgans: donation.selectedOrgans,
+      rejectedBy: adminId, rejectionTime: new Date().toISOString(),
+      previousTxHash: donation.transactionHash
+    })
+    await updateDoc(donationRef, {
+      status: 'REJECTED', rejectionDate: new Date().toISOString(),
+      rejectionTxHash, rejectedBy: adminId
+    })
+    return { success: true }
+  } catch (error: any) {
+    return { success: false, error: error.message }
+  }
+}
+
 export async function getPendingDonations() {
   try {
     const q = query(collection(db, 'organDonations'), where('status', '==', 'PENDING'))
     const snapshot = await getDocs(q)
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-  } catch (error) {
-    console.error('Error fetching pending donations:', error)
-    return []
-  }
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  } catch (error) { return [] }
 }
 
-// Get approved donations for admin
 export async function getApprovedDonations() {
   try {
     const q = query(collection(db, 'organDonations'), where('status', '==', 'APPROVED'))
     const snapshot = await getDocs(q)
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-  } catch (error) {
-    console.error('Error fetching approved donations:', error)
-    return []
-  }
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  } catch (error) { return [] }
 }
 
-// Get all blockchain transactions (immutable audit trail)
+export async function getRejectedDonations() {
+  try {
+    const q = query(collection(db, 'organDonations'), where('status', '==', 'REJECTED'))
+    const snapshot = await getDocs(q)
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  } catch (error) { return [] }
+}
+
 export async function getBlockchainTransactions() {
   try {
     const snapshot = await getDocs(collection(db, 'organDonationBlockchain'))
-    return snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-  } catch (error) {
-    console.error('Error fetching blockchain transactions:', error)
-    return []
-  }
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  } catch (error) { return [] }
 }
 
-// Get donation count statistics
 export async function getDonationStats() {
   try {
     const allDonations = await getDocs(collection(db, 'organDonations'))
     const pending = allDonations.docs.filter(d => d.data().status === 'PENDING').length
     const approved = allDonations.docs.filter(d => d.data().status === 'APPROVED').length
-
-    return {
-      total: allDonations.size,
-      pending,
-      approved
-    }
+    const rejected = allDonations.docs.filter(d => d.data().status === 'REJECTED').length
+    return { total: allDonations.size, pending, approved, rejected }
   } catch (error) {
-    console.error('Error fetching stats:', error)
-    return { total: 0, pending: 0, approved: 0 }
+    return { total: 0, pending: 0, approved: 0, rejected: 0 }
   }
 }
+
+

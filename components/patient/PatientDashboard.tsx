@@ -87,9 +87,11 @@ export default function PatientDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Card */}
-      <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg border-2 border-blue-200">
-        <h2 className="text-2xl font-bold text-gray-900">Welcome, {patientData?.name}!</h2>
-        <p className="text-gray-600 mt-1">Age: {patientData?.age} | Blood Type: {patientData?.bloodType}</p>
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome, {patientData?.name}!</h2>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
+          {patientData?.age && patientData.age > 0 ? `Age: ${patientData.age} | ` : ''}Blood Type: {patientData?.bloodType}
+        </p>
       </div>
 
       {/* Stats Grid */}
