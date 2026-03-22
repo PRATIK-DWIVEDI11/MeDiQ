@@ -547,7 +547,7 @@ export async function markPatientStatus(appointmentId: string, status: 'SEEING' 
   }
 }
 
-export async function addPatientToQueue(doctorId, patientDetails) {
+export async function addPatientToQueue(doctorId: string, patientDetails: any) {
   const queueRef = doc(db, "doctorQueues", doctorId);
   const queueSnap = await getDoc(queueRef);
   let queue = [];
@@ -560,7 +560,7 @@ export async function addPatientToQueue(doctorId, patientDetails) {
 }
 
 // Get full queue for doctor
-export async function getQueueForDoctor(doctorId) {
+export async function getQueueForDoctor(doctorId: string) {
   const queueRef = doc(db, "doctorQueues", doctorId);
   const queueSnap = await getDoc(queueRef);
   return queueSnap.exists() ? queueSnap.data().queue : [];
