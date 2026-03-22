@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { Brain, Loader } from 'lucide-react'
 import { analyzeSymptoms, type AIBookingRequest, type AIRecommendation } from '../../lib/aiService'
-import { bookAppointment } from '../../lib/firebaseServices'
 import { useAuthStore } from '../../lib/authContext'
 import { useRouter } from 'next/navigation'
 
