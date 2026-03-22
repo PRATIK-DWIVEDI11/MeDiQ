@@ -17,7 +17,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
     
     setTimeout(() => {
       localStorage.setItem('userType', userType)
-      localStorage.setItem('userName', email.split('@'))
+      localStorage.setItem('userName', email.split('@')[0])
       router.push(`/${userType}`)
       setLoading(false)
     }, 800)
